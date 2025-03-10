@@ -1,0 +1,17 @@
+
+
+@import "tailwindcss";
+
+.primary {
+  background-color: #003366; /* น้ำเงินเข้ม */
+}
+.secondary {
+  background-color: #FFDD00; /* สีเหลืองทอง */
+}
+.accent {
+  background-color: #FFAB00; /* สีส้มเข้ม */
+}
+.font {
+  font-family: 'Kanit', sans-serif;
+}
+
