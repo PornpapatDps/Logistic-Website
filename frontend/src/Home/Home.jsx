@@ -21,7 +21,7 @@ function Home() {
   {/* <!-- ปุ่มลงทะเบียน --> */}
   <button className="bg-[#DC3545] text-white text-xl
    hover:bg-[#4e8d53] px-6 py-3 rounded-lg mt-4 transition-all">
-    <Link to="/RegisterSent">ลงทะเบียนเข้าใช้งาน</Link>
+    <Link to="/Register">ลงทะเบียนเข้าใช้งาน</Link>
     
   </button>
 </div>

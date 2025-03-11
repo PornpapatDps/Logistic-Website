@@ -18,7 +18,7 @@ function Services() {
   {/* Transportation */}
   <div className="bg-gradient-to-r from-blue-700 to-blue-900 text-white rounded-lg shadow-xl p-6 hover:shadow-2xl hover:scale-105 transition-all duration-300 ease-in-out">
     <div className="text-5xl flex justify-center items-center">
-      <Link to="/RegisterSent" className="nav-link text-white hover:text-yellow-300 px-4 transition-colors duration-200">
+      <Link to="/Register" className="nav-link text-white hover:text-yellow-300 px-4 transition-colors duration-200">
         <MdEmojiTransportation className="animate-bounce" />
       </Link>
     </div>
