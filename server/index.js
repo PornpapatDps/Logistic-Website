@@ -148,7 +148,6 @@ app.get('/Register/:id', async (req, res) => {
     if (results[0].length == 0) {
       throw { statusCode: 404, message: 'หาไม่เจอ' }
     }
-
     res.json(results[0][0])
   } catch (error) {
     console.error('error message', error.message)
@@ -180,7 +179,6 @@ app.put('/Register/:id', async (req, res) => {
     })
   }
 })
-
 
 // path DELETE /Register/:id สำหรับการลบ Register รายคน (ตาม id ที่บันทึกเข้าไป)
 app.delete('/Register/:id', async (req, res) => {

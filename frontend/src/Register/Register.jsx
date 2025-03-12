@@ -21,8 +21,7 @@ function Register() {
     productSize: '',
     productWeight: '',
     productNote: '',
-    productType: '', 
-    
+    productType: '',    
   });
 
   // ฟังก์ชันสำหรับดึงข้อมูลเขตและแขวงตามจังหวัดที่เลือก
@@ -217,7 +216,8 @@ function Register() {
         </div>
 
         <div className="mb-4">
-          <label className="sm:block text-lg font-semibold text-gray-700">นามสกุลผู้รับสินค้า</label>
+          <label className="sm:block text-lg font-semibold text-gray-700">
+            นามสกุลผู้รับสินค้า</label>
           <input
             className="sm: w-full p-3 mt-2 border-2 border-gray-300 rounded-md 
             focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -231,7 +231,8 @@ function Register() {
 
         {/* ฟอร์มประเภทขนส่ง */}
         <div className="mb-4">
-          <label className="sm:block text-lg font-semibold text-gray-700">ประเภทขนส่ง</label>
+          <label className="sm:block text-lg font-semibold text-gray-700">
+            ประเภทขนส่ง</label>
           <div className="sm:flex space-x-6">
             <div className="sm:flex items-center">
               <label className="mr-2">ประเภทขนส่ง:</label>
@@ -241,9 +242,7 @@ function Register() {
                     name="transportType"
                     value={formData.transportType}
                     onChange={handleChange}
-                    
                   >
-                      
                 <option value="เลือกประเภทขนส่ง">เลือกประเภทขนส่ง</option>
                 <option value="รถยนต์">รถยนต์</option>
                 <option value="รถจักรยานยนต์">รถจักรยานยนต์</option>
