@@ -187,13 +187,11 @@ function Register() {
   
 };
   return (
-    <div className="max-w-3xl mx-auto py-8 px-4 bg-gray-100 rounded-lg shadow-lg">
+    <div className="sm:max-w-xl mx-auto py-8 px-4 bg-gray-100 rounded-lg shadow-lg">
       <ToastContainer />
      
       <h2 className="text-3xl font-bold text-center text-gray-700 mb-6">ลงทะเบียนผู้รับสินค้า</h2>
       <form onSubmit={submitData } className=' grid grid-cols-2 gap-2 '>
-          
-
             {/* แสดงข้อผิดพลาด */}
         {errors.length > 0 && (
           <div className="bg-red-100 min-h-screen text-red-700 p-4 rounded-lg mb-6">
@@ -206,9 +204,10 @@ function Register() {
         )}
 
         <div className="mb-4">
-          <label className="block text-lg font-semibold text-gray-700">ชื่อจริงผู้รับสินค้า</label>
+          <label className="sm:block text-lg font-semibold text-gray-700">ชื่อจริงผู้รับสินค้า</label>
           <input
-            className="w-full p-3 mt-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="sm: w-full p-3 mt-2 border-2 border-gray-300 rounded-md 
+            focus:outline-none focus:ring-2 focus:ring-blue-500"
             name="firstname"
             type="text"
             value={formData.firstname}
@@ -218,9 +217,10 @@ function Register() {
         </div>
 
         <div className="mb-4">
-          <label className="block text-lg font-semibold text-gray-700">นามสกุลผู้รับสินค้า</label>
+          <label className="sm:block text-lg font-semibold text-gray-700">นามสกุลผู้รับสินค้า</label>
           <input
-            className="w-full p-3 mt-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="sm: w-full p-3 mt-2 border-2 border-gray-300 rounded-md 
+            focus:outline-none focus:ring-2 focus:ring-blue-500"
             name="lastname"
             type="text"
             value={formData.lastname}
@@ -231,12 +231,13 @@ function Register() {
 
         {/* ฟอร์มประเภทขนส่ง */}
         <div className="mb-4">
-          <label className="block text-lg font-semibold text-gray-700">ประเภทขนส่ง</label>
-          <div className="flex space-x-6">
-            <div className="flex items-center">
+          <label className="sm:block text-lg font-semibold text-gray-700">ประเภทขนส่ง</label>
+          <div className="sm:flex space-x-6">
+            <div className="sm:flex items-center">
               <label className="mr-2">ประเภทขนส่ง:</label>
               <select
-                    className="p-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="sm:p-2 border-2 border-gray-300 rounded-md 
+                    focus:outline-none focus:ring-2 focus:ring-blue-500"
                     name="transportType"
                     value={formData.transportType}
                     onChange={handleChange}
@@ -255,9 +256,10 @@ function Register() {
 
         {/* ฟอร์มวันที่จัดส่ง */}
         <div className="mb-4">
-          <label className="block text-lg font-semibold text-gray-700">วันที่จัดส่ง</label>
+          <label className="sm:block text-lg font-semibold text-gray-700">วันที่จัดส่ง</label>
           <input
-            className="w-full p-3 mt-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="sm:w-full p-3 mt-2 border-2 border-gray-300 
+            rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             name="deliveryDate"
             type="date"
             value={formData.deliveryDate}
@@ -269,10 +271,11 @@ function Register() {
         </div>
 
         {/* ฟอร์มถนน */}
-        <div className="mb-4">
-          <label className="block text-lg font-semibold text-gray-700">ถนน</label>
+        <div className="sm:mb-4">
+          <label className="sm:block text-lg font-semibold text-gray-700">ถนน</label>
           <input
-            className="w-full p-3 mt-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 mt-2 border-2 border-gray-300 rounded-md
+           focus:outline-none focus:ring-2 focus:ring-blue-500"
             name="street"
             type="text"
             value={formData.street}
@@ -281,10 +284,11 @@ function Register() {
           />
         </div>
 
-        <div className="mb-4">
-          <label className="block text-lg font-semibold text-gray-700">ซอย</label>
+        <div className="sm:mb-4">
+          <label className="sm:block text-lg font-semibold text-gray-700">ซอย</label>
           <input
-            className="w-full p-3 mt-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 mt-2 border-2 border-gray-300 rounded-md
+           focus:outline-none focus:ring-2 focus:ring-blue-500"
             name="soi"
             type="text"
             value={formData.soi}
@@ -294,7 +298,7 @@ function Register() {
         </div>
 
         <div className="mb-4">
-          <label className="block text-lg font-semibold text-gray-700">จังหวัด</label>
+          <label className="sm:block text-lg font-semibold text-gray-700">จังหวัด</label>
           <select
             className="w-full p-3 mt-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             name="thaiDistricts"
@@ -348,7 +352,7 @@ function Register() {
         </div>
 
         <div className="mb-4">
-          <label className="block text-lg font-semibold text-gray-700">รหัสไปรษณีย์</label>
+          <label className="sm:block text-lg font-semibold text-gray-700">รหัสไปรษณีย์</label>
           <input
             className="w-full p-3 mt-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             name="zipcodes"
@@ -360,9 +364,9 @@ function Register() {
           />
         </div>
 
-        <div className="mb-4">
-        <label className="block text-lg font-semibold text-gray-700">รายละเอียดสินค้า</label>
-        <div className="flex items-center">
+        <div className="sm:mb-4">
+        <label className="sm:block text-lg font-semibold text-gray-700">รายละเอียดสินค้า</label>
+        <div className="sm:flex items-center">
           <label className="mr-2">ประเภทสินค้า:</label>
           <select
             className="w-full p-3 mt-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -421,7 +425,8 @@ function Register() {
       <div className="mb-4">
         <label className="block text-lg font-semibold text-gray-700">หมายเหตุสินค้า</label>
         <textarea
-          className="w-full p-3 mt-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-3 mt-2 border-2 border-gray-300 rounded-md
+           focus:outline-none focus:ring-2 focus:ring-blue-500"
           name="productNote"
           value={formData.productNote}
           onChange={handleChange}
@@ -436,7 +441,7 @@ function Register() {
   <button
     onClick={submitData} // ใช้ React syntax ที่ถูกต้อง
     type="submit"
-    className="w-full p-3 bg-blue-500 text-white font-semibold rounded-md mt-4 hover:bg-blue-600"
+    className="w-full p-3 to bg-green-500  text-white font-semibold rounded-md mt-4 hover:bg-green-600"
     disabled={isSubmitting || loading}
   >
     {loading ? 'กำลังส่งข้อมูล...' : 'ลงทะเบียน'}
