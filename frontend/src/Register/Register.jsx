@@ -9,7 +9,7 @@ function Register() {
   const [formData, setFormData] = useState({
     firstname: '',
     lastname: '',
-    transportType: [],
+    transportType: '',
     street: '',
     soi: '',
     thaiDistricts: '',
@@ -57,7 +57,7 @@ function Register() {
   }
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type } = e.target;
 
     if (name === "firstname" || name === "lastname") {
       const namePattern = /^[A-Za-zก-๏\s]+$/;
@@ -76,15 +76,20 @@ function Register() {
           ...prevState,
           [name]: formattedDate, // ใช้ค่าแบบ YYYY-MM-DD เท่านั้น
         }));
-      
-    }else if (type === "checkbox") {
+      }else if(type === "select-multiple") {
+      const options = e.target.options;
+      const value = [];
+      for (let i = 0; i < options.length; i++) {
+        if (options[i].selected) {
+          value.push(options[i].value);
+        }
+      }
       setFormData((prevState) => ({
         ...prevState,
-        transportType: checked
-          ? [...prevState.transportType, value]
-          : prevState.transportType.filter((type) => type !== value),
+        [name]: value,
       }));
-    } else {
+    
+   } else {
       setFormData((prevState) => ({
         ...prevState,
         [name]: value,
@@ -98,8 +103,9 @@ function Register() {
   const [loading,setLoading] = useState(false);
   const [errors, setErrors] = useState([]);
   
-  const handleSubmit = async  (e) => {
+  const submitData  = async  (e) => {
     e.preventDefault();
+    
     if (isSubmitting) return;
     setIsSubmitting(true);
     setLoading(true);
@@ -110,7 +116,8 @@ function Register() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
-      });
+       
+      })
 
       const result = await response.json();
     
@@ -119,7 +126,7 @@ function Register() {
         setFormData({
           firstname: '',
           lastname: '',
-          transportType: [],
+          transportType: '',
           street: '',
           soi: '',
           thaiDistricts: '',
@@ -168,20 +175,23 @@ function Register() {
 
     }else {
       setErrors(result.errors || ["เกิดข้อผิดพลาดที่ไม่รู้จัก"]);
+      
     }
    
   } catch (error) {
     console.error("Error:", error);
     setErrors(["เกิดข้อผิดพลาดในการเชื่อมต่อเซิร์ฟเวอร์"]);
+    
   }
   setLoading(false);
+  
 };
   return (
     <div className="max-w-3xl mx-auto py-8 px-4 bg-gray-100 rounded-lg shadow-lg">
       <ToastContainer />
      
       <h2 className="text-3xl font-bold text-center text-gray-700 mb-6">ลงทะเบียนผู้รับสินค้า</h2>
-      <form onSubmit={handleSubmit} className=' grid grid-cols-2 gap-2 '>
+      <form onSubmit={submitData } className=' grid grid-cols-2 gap-2 '>
           
 
             {/* แสดงข้อผิดพลาด */}
@@ -421,17 +431,18 @@ function Register() {
       </div>
 
     </form>
-    {/* Submit Button */}
-      <div className="flex justify-center">
-            <button
-        type="submit"
-        className="w-full p-3 bg-blue-500 text-white font-semibold rounded-md mt-4 hover:bg-blue-600"
-        disabled={isSubmitting || loading}
-      >
-        {loading ? 'กำลังส่งข้อมูล...' : 'ลงทะเบียน'}
-      </button>
+   {/* Submit Button */}
+<div className="flex justify-center">
+  <button
+    onClick={submitData} // ใช้ React syntax ที่ถูกต้อง
+    type="submit"
+    className="w-full p-3 bg-blue-500 text-white font-semibold rounded-md mt-4 hover:bg-blue-600"
+    disabled={isSubmitting || loading}
+  >
+    {loading ? 'กำลังส่งข้อมูล...' : 'ลงทะเบียน'}
+  </button>
+</div>
 
-      </div>
   </div>
 );
 }
