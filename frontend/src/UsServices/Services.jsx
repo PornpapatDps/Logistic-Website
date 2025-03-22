@@ -14,7 +14,7 @@ function Services() {
   <h2 className="text-center text-[#003366] text-3xl font-bold">Our Services</h2>
   <p className="text-center text-[#4A4A4A] text-xl mt-4">We provide the best transportation services</p>
 
-  <div className="grid sm:grid-cols-3 lg:grid-cols-4 gap-8 mt-6 p-4">
+  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-6 p-4">
   {/* Transportation */}
   <div className="bg-gradient-to-r from-blue-700 to-blue-900 text-white rounded-lg shadow-xl p-6 hover:shadow-2xl hover:scale-105 transition-all duration-300 ease-in-out">
     <div className="text-5xl flex justify-center items-center">
@@ -45,7 +45,7 @@ function Services() {
     <p className="text-2xl text-center mt-4">Consulting</p>
   </div>
 
-  {/* Warehousing */}
+  {/* Warehousing
   <div className="bg-gradient-to-r from-orange-700 to-orange-900 text-white rounded-lg shadow-xl p-6 hover:shadow-2xl hover:scale-105 transition-all duration-300 ease-in-out">
     <div className="text-5xl flex justify-center items-center">
       <Link to="/Warehousing" className="nav-link text-white hover:text-yellow-300 px-4 transition-colors duration-200">
@@ -53,7 +53,7 @@ function Services() {
       </Link>
     </div>
     <p className="text-2xl text-center mt-4">Warehousing</p>
-  </div>
+  </div> */}
 </div>
 </div>
 </div>

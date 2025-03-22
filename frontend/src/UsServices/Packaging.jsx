@@ -7,6 +7,9 @@ import { useCallback } from 'react';
 function Packaging() {
   const [users, setUsers] = useState([]);
   const [editingUser, setEditingUser] = useState(null);
+  const [sortBy, setSortBy] = useState(""); // ตัวเลือกการเรียงลำดับ
+  const [searchTerm, setSearchTerm] = useState(""); // สร้าง state สำหรับเก็บข้อความค้นหา
+  const [sortDirection, setSortDirection] = useState("asc"); // "asc" = น้อยไปมาก, "desc" = มากไปน้อย
   const [formData, setFormData] = useState({
     firstname: '',
     lastname: '',
@@ -97,85 +100,147 @@ function Packaging() {
     }
   };
 
+  // 🔎 ฟังก์ชันกรองข้อมูลที่ค้นหา
+  const filteredUsers = users.filter((user) => {
+    const lowerCaseSearch = searchTerm.toLowerCase();
+    return (
+      user.id.toString().toLowerCase().includes(lowerCaseSearch) ||
+      user.firstname?.toLowerCase().includes(lowerCaseSearch) ||
+      user.lastname?.toLowerCase().includes(lowerCaseSearch) ||
+      user.transportType?.toLowerCase().includes(lowerCaseSearch) ||
+      user.zipcodes?.toString().toLowerCase().includes(lowerCaseSearch) ||
+      user.productType?.toLowerCase().includes(lowerCaseSearch)
+    );
+  });
+  // 🔄 ฟังก์ชันเรียงลำดับข้อมูล
+  const sortedUsers = [...filteredUsers].sort((a, b) => {
+    if (["id", "zipcodes"].includes(sortBy)) {
+      return sortDirection === "desc" ? b[sortBy] - a[sortBy] : a[sortBy] - b[sortBy];
+    } else if (["firstname", "lastname", "transportType", "productType"].includes(sortBy)) {
+      return sortDirection === "desc"
+        ? b[sortBy].localeCompare(a[sortBy], "th") // ฮ-ก / Z-A
+        : a[sortBy].localeCompare(b[sortBy], "th"); // ก-ฮ / A-Z
+    }
+    return 0;
+  });
+
+
+
   return (
-    <div className="bg-gray-300 min-h-screen p-4 sm:p-10">
-      <div className="bg-white overflow-x-auto shadow-md rounded-lg p-4 sm:p-10">
-        <h1 className="text-4xl font-bold mb-4 text-gray-800 sm:text-center">
-          รายงานการจัดส่ง</h1>
-        <table className="min-w-full bg-white border border-gray-100 rounded-3xl">
-          <thead className="bg-gray-200 text-gray-900 border rounded-3xl">
-            <tr className="text-lg sm:text-2xl">
-              <th className="p-3 border">ID</th>
-              <th className="p-3 border">วันที่จัดส่ง</th>
-              <th className="p-3 border">ชื่อจริง</th>
-              <th className="p-3 border">นามสกุล</th>
-              <th className="p-3 border">ประเภทขนส่ง</th>
-              <th className="p-3 border">รหัสไปรษณีย์</th>
-              <th className="p-3 border">จังหวัด</th>
-              <th className="p-3 border">แขวง</th>
-              <th className="p-3 border">เขต</th>
-              <th className="p-3 border">ถนน</th>
-              <th className="p-3 border">ซอย</th>
-              <th className="p-3 border">ประเภทสินค้า</th>
-              <th className="p-3 border">จำนวนสินค้า</th>
-              <th className="p-3 border">ขนาดสินค้า</th>
-              <th className="p-3 border">น้ำหนักสินค้า</th>
-              <th className="p-3 border">หมายเหตุ</th>
-              <th className="p-3 border">ลบ</th>
-              <th className="p-3 border">แก้ไข</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.length > 0 ? (
-              users.map((user) => (
-                <tr
-                  key={user.id}
-                  className="hover:bg-gray-50 transition duration-200 text-gray-900 border-b border-gray-100 text-sm sm:text-lg"
-                >
-                  <td className="p-3 border text-center">{user.id}</td>
-                  <td className="p-3 border text-center">{user.deliveryDate}</td>
-                  <td className="p-3 border text-center">{user.firstname}</td>
-                  <td className="p-3 border text-center">{user.lastname}</td>
-                  <td className="p-3 border text-center">{user.transportType}</td>
-                  <td className="p-3 border text-center">{user.zipcodes}</td>
-                  <td className="p-3 border text-center">{user.thaiDistricts}</td>
-                  <td className="p-3 border text-center">{user.subDistrict}</td>
-                  <td className="p-3 border text-center">{user.districts}</td>
-                  <td className="p-3 border text-center">{user.street}</td>
-                  <td className="p-3 border text-center">{user.soi}</td>
-                  <td className="p-3 border text-center">{user.productType}</td>
-                  <td className="p-3 border text-center">{user.productQuantity}</td>
-                  <td className="p-3 border text-center">{user.productSize}</td>
-                  <td className="p-3 border text-center">{user.productWeight}</td>
-                  <td className="p-3 border text-center">{user.productNote}</td>
-                  <td className="p-3 border text-center">
-                    <button
-                      className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 transition duration-200"
-                      onClick={() => handleDelete(user.id)}
-                    >
-                      ลบ
-                    </button>
-                  </td>
-                  <td className="p-3 border text-center">
-                    <button
-                      className="bg-yellow-400 text-white px-4 py-1 rounded hover:bg-yellow-500 transition duration-200"
-                      onClick={() => handleEdit(user.id)}
-                    >
-                      แก้ไข
-                    </button>
-                    
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="18" className="text-center p-4 text-gray-500">
-                  ไม่พบข้อมูล
+    <div className="bg-white min-h-screen p-4 sm:p-10 text-white">
+    <div className="bg-white text-[#003366] overflow-x-auto shadow-md rounded-lg p-4 sm:p-10">
+      <h1 className="text-4xl font-bold mb-4 sm:text-center text-[#003366]">รายงานการจัดส่ง</h1>
+
+        {/* 🔎 ช่องค้นหา */}
+        <div className="flex flex-wrap items-center gap-2 mb-4">
+          <input
+            type="text"
+            placeholder="ค้นหา ID, ชื่อ, นามสกุล, ประเภทขนส่ง, รหัสไปรษณีย์, ประเภทสินค้า"
+            className="border p-2 rounded w-full sm:w-1/2 text-[#003366]"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+
+        {/* 🎛 ตัวเลือกการกรอง */}
+        <div className="flex flex-wrap gap-2 mb-4">
+          <select
+            className="border p-2 rounded text-[#003366]"
+            onChange={(e) => setSortBy(e.target.value)}
+            value={sortBy}
+          >
+            <option value="">-- ตัวกรองข้อมูล --</option>
+            <option value="id">เรียงตาม ID</option>
+            <option value="zipcodes">เรียงตาม รหัสไปรษณีย์</option>
+            <option value="firstname">เรียงตาม ชื่อ</option>
+            <option value="lastname">เรียงตาม นามสกุล</option>
+            <option value="transportType">เรียงตาม ประเภทขนส่ง</option>
+            <option value="productType">เรียงตาม ประเภทสินค้า</option>
+          </select>
+
+          <button
+            className="border p-2 rounded text-[#003366]"
+            onClick={() => setSortDirection(sortDirection === "desc" ? "asc" : "desc")}
+          >
+            {sortDirection === "desc" ? "🔼 น้อย → มาก / ก-ฮ" : "🔽 มาก → น้อย / ฮ-ก"}
+          </button>
+        </div>
+
+        <table className="min-w-full border border-gray-200 rounded-lg overflow-hidden">
+        <thead className="bg-[#FFDD00] text-[#003366] text-lg">
+          <tr>
+            <th className="p-3 border text-center">ID</th>
+            <th className="p-3 border text-center">วันที่จัดส่ง</th>
+            <th className="p-3 border text-center">ชื่อจริง</th>
+            <th className="p-3 border text-center">นามสกุล</th>
+            <th className="p-3 border text-center">ประเภทขนส่ง</th>
+            <th className="p-3 border text-center">รหัสไปรษณีย์</th>
+            <th className="p-3 border text-center">จังหวัด</th>
+            <th className="p-3 border text-center">แขวง</th>
+            <th className="p-3 border text-center">เขต</th>
+            <th className="p-3 border text-center">ถนน</th>
+            <th className="p-3 border text-center">ซอย</th>
+            <th className="p-3 border text-center">ประเภทสินค้า</th>
+            <th className="p-3 border text-center">จำนวน</th>
+            <th className="p-3 border text-center">ขนาด</th>
+            <th className="p-3 border text-center">น้ำหนัก</th>
+            <th className="p-3 border text-center">หมายเหตุ</th>
+            <th className="p-3 border text-center">ลบ</th>
+            <th className="p-3 border text-center">แก้ไข</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedUsers.length > 0 ? (
+            sortedUsers.map((user, index) => (
+              <tr
+                key={user.id}
+                className={`${
+      index % 2 === 0 ? "bg-gray-100" : "bg-white"
+    } hover:bg-[#FFAB00] transition duration-200 text-[#003366] border-b border-gray-300 text-sm sm:text-base`}
+              >
+                <td className="p-3 border text-center">{user.id}</td>
+                <td className="p-3 border text-center">{user.deliveryDate}</td>
+                <td className="p-3 border text-center">{user.firstname}</td>
+                <td className="p-3 border text-center">{user.lastname}</td>
+                <td className="p-3 border text-center">{user.transportType}</td>
+                <td className="p-3 border text-center">{user.zipcodes}</td>
+                <td className="p-3 border text-center">{user.thaiDistricts}</td>
+                <td className="p-3 border text-center">{user.subDistrict}</td>
+                <td className="p-3 border text-center">{user.districts}</td>
+                <td className="p-3 border text-center">{user.street}</td>
+                <td className="p-3 border text-center">{user.soi}</td>
+                <td className="p-3 border text-center">{user.productType}</td>
+                <td className="p-3 border text-center">{user.productQuantity}</td>
+                <td className="p-3 border text-center">{user.productSize}</td>
+                <td className="p-3 border text-center">{user.productWeight}</td>
+                <td className="p-3 border text-center">{user.productNote}</td>
+                <td className="p-3 border text-center">
+                  <button
+                    className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 transition duration-200"
+                    onClick={() => handleDelete(user.id)}
+                  >
+                    ลบ
+                  </button>
+                </td>
+                <td className="p-3 border text-center">
+                  <button
+                    className="bg-yellow-400 text-white px-4 py-1 rounded hover:bg-yellow-500 transition duration-200"
+                    onClick={() => handleEdit(user.id)}
+                  >
+                    แก้ไข
+                  </button>
                 </td>
               </tr>
-            )}
-          </tbody>
-        </table>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="18" className="text-center p-4 text-gray-500">
+                ไม่พบข้อมูล
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
       </div>
 
       {/* Modal for editing user */}
