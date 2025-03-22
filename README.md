@@ -40,17 +40,18 @@ cd frontend
 npm install
 
 สำหรับ Backend (Node.js + MySQL):
-
+```bash
 cd backend
 npm install
-รัน Backend:
 
+#รัน Backend:
+```bash
 cd backend
 npm start
-จะรันเซิร์ฟเวอร์ที่ http://localhost:5000
 
+#จะรันเซิร์ฟเวอร์ที่ http://localhost:5000
 รัน Frontend:
-
+```bash
 cd frontend
 npm start
 
