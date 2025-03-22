@@ -33,28 +33,37 @@
    ```bash
    git clone https://github.com/PornpapatDps/Logistic-Website.git
 
-#ติดตั้ง dependencies: ไปที่โฟลเดอร์ของ frontend และ backend จากนั้นติดตั้ง dependencies
+ติดตั้ง dependencies: ไปที่โฟลเดอร์ของ frontend และ backend จากนั้นติดตั้ง dependencies
 
-#สำหรับ Frontend (React.js)
+สำหรับ Frontend (React.js):
+
+bash
+คัดลอก
 cd frontend
 npm install
-
 สำหรับ Backend (Node.js + MySQL):
-```bash
+
+bash
+คัดลอก
 cd backend
 npm install
+รัน Backend:
 
-#รัน Backend:
-```bash
+bash
+คัดลอก
 cd backend
 npm start
+เซิร์ฟเวอร์ของ Backend จะรันที่ http://localhost:5000
 
-#จะรันเซิร์ฟเวอร์ที่ http://localhost:5000
 รัน Frontend:
-```bash
+
+bash
+คัดลอก
 cd frontend
 npm start
+เซิร์ฟเวอร์ของ Frontend จะรันที่ http://localhost:3000
 
+เปิดเบราว์เซอร์และไปที่ http://localhost:3000 เพื่อดูเว็บไซต์
 
 
 ---
