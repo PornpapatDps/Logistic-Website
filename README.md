@@ -33,15 +33,14 @@
    ```bash
    git clone https://github.com/PornpapatDps/Logistic-Website.git
 
-ติดตั้ง dependencies: ไปที่โฟลเดอร์ของ frontend และ backend จากนั้นติดตั้ง dependencies
+**ติดตั้ง dependencies: ไปที่โฟลเดอร์ของ frontend และ backend จากนั้นติดตั้ง dependencies**
 
-สำหรับ Frontend (React.js):
-
-bash
-คัดลอก
+**สำหรับ Frontend (React.js)**
+ ```bash
 cd frontend
 npm install
-สำหรับ Backend (Node.js + MySQL):
+```
+**สำหรับ Backend (Node.js + MySQL):**
 
 bash
 คัดลอก
